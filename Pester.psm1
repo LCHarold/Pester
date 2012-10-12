@@ -1,6 +1,6 @@
 # Pester
 # Version: $version$
-# Changeset: $sha$
+# Changeset: 
 
 Resolve-Path $PSScriptRoot\Functions\*.ps1 | 
     ? { -not ($_.ProviderPath.Contains(".Tests.")) } |
@@ -22,7 +22,7 @@ function Invoke-Pester {
     Update-TypeData -pre "$PSScriptRoot\ObjectAdaptations\types.ps1xml" -ErrorAction SilentlyContinue
 
     $fixtures_path = Resolve-Path $relative_path
-    Write-Host Executing all tests in $fixtures_path
+    Write-Host "Executing all tests in $fixtures_path"
 
     Get-ChildItem $fixtures_path -Include "*.ps1" -Recurse |
         ? { $_.Name -match "\.Tests\." } |
