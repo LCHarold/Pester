@@ -28,7 +28,9 @@ Task Version-Module{
         $changeset=(git log -1 $($v + '..') --pretty=format:%H)
         (Get-Content "$baseDir\Pester.psm1") | % {$_ -replace "\`$version\`$", "$version$buildNumber" } | % {$_ -replace "\`$sha\`$", "$changeset" } | Set-Content "$baseDir\Pester.psm1"
     } catch {
-        Write-Host "Can't get version."
+        $version = '1.07'
+        $buildNumber = ''
+        Write-Host "Can't get version. Using $version$buildNumber instead."
     }
 }
 
