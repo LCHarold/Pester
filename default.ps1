@@ -23,14 +23,14 @@ Task Strip-BuildNumber {
 }
 
 Task Version-Module{
-    $v = git describe --abbrev=0 --tags
-    $changeset=(git log -1 $($v + '..') --pretty=format:%H)
-    (Get-Content "$baseDir\Pester.psm1") | % {$_ -replace "\`$version\`$", "$version$buildNumber" } | % {$_ -replace "\`$sha\`$", "$changeset" } | Set-Content "$baseDir\Pester.psm1"
-    if ($v -eq '') {
+    # $v = git describe --abbrev=0 --tags
+    # $changeset=(git log -1 $($v + '..') --pretty=format:%H)
+    # (Get-Content "$baseDir\Pester.psm1") | % {$_ -replace "\`$version\`$", "$version$buildNumber" } | % {$_ -replace "\`$sha\`$", "$changeset" } | Set-Content "$baseDir\Pester.psm1"
+    # if ($v -starts'') {
         $version = '1.07'
         $buildNumber = ''
-        Write-Host "Can't get version. Using $version$buildNumber instead."
-    }
+    #     Write-Host "Can't get version. Using $version$buildNumber instead."
+    # }
 }
 
 Task Unversion-Module{
