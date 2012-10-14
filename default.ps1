@@ -4,14 +4,17 @@ properties {
     $Invocation = (Get-Variable MyInvocation -Scope 1).Value
     $baseDir = $psake.build_script_dir
     echo $baseDir
-    $version = git describe --abbrev=0 --tags
-    $buildNumber = '-alpha-' + (git log $($version + '..') --pretty=oneline | measure-object).Count
+    # $version = git describe --abbrev=0 --tags
+    # $buildNumber = '-alpha-' + (git log $($version + '..') --pretty=oneline | measure-object).Count
+    $version = "1.07"
+    $buildNumber = ""
     $nugetExe = "$baseDir\vendor\tools\nuget"
 }
 
 Task default -depends Build
 Task Build -depends Test, Package
-Task Package -depends Version-Module, Pack-Nuget, Unversion-Module
+# Task Package -depends Version-Module, Pack-Nuget, Unversion-Module
+Task Package -depends Pack-Nuget
 Task Release -depends Strip-BuildNumber, Build, Push-Nuget
 
 Task Test {
@@ -23,14 +26,9 @@ Task Strip-BuildNumber {
 }
 
 Task Version-Module{
-    # $v = git describe --abbrev=0 --tags
-    # $changeset=(git log -1 $($v + '..') --pretty=format:%H)
-    # (Get-Content "$baseDir\Pester.psm1") | % {$_ -replace "\`$version\`$", "$version$buildNumber" } | % {$_ -replace "\`$sha\`$", "$changeset" } | Set-Content "$baseDir\Pester.psm1"
-    # if ($v -starts'') {
-        $version = '1.07'
-        $buildNumber = ''
-    #     Write-Host "Can't get version. Using $version$buildNumber instead."
-    # }
+    $v = git describe --abbrev=0 --tags
+    $changeset=(git log -1 $($v + '..') --pretty=format:%H)
+    (Get-Content "$baseDir\Pester.psm1") | % {$_ -replace "\`$version\`$", "$version$buildNumber" } | % {$_ -replace "\`$sha\`$", "$changeset" } | Set-Content "$baseDir\Pester.psm1"
 }
 
 Task Unversion-Module{
