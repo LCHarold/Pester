@@ -1,6 +1,6 @@
 # Pester
 # Version: $version$
-# Changeset: $sha$
+# Changeset: 
 
 Resolve-Path $PSScriptRoot\Functions\*.ps1 | 
     ? { -not ($_.ProviderPath.Contains(".Tests.")) } |
