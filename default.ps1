@@ -6,7 +6,7 @@ properties {
     echo $baseDir
     # $version = git describe --abbrev=0 --tags
     # $buildNumber = '-alpha-' + (git log $($version + '..') --pretty=oneline | measure-object).Count
-    $version = "1.07"
+    $version = "1.0.7"
     $buildNumber = ""
     $nugetExe = "$baseDir\vendor\tools\nuget"
 }
