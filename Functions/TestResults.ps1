@@ -9,6 +9,7 @@ function Get-GlobalTestResults {
     $testResults.CurrentDescribe = @{ name = ''; Tests = @() }
     $testResults.TestCount = 0
     $testResults.FailedTestCount = 0
+    $testResults.FailedTestsCount = 0
     $testResults.TestDepth = 0
     $testResults.TotalTime = 0;
 
